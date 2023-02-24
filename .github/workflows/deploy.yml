@@ -1,0 +1,23 @@
+name: Deploy-functiongraph-sample1
+
+on:
+  push:
+    branches:
+      - "master"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Out #  调用action：checkout，将仓库代码检出到runner
+        uses: actions/checkout@v2
+
+      - name: deploy single function file to huaweicloud functiongraph #  调用action：deploy-functiongraph-action
+        uses: huaweicloud/deploy-functiongraph-action@v1.0.4
+        with:
+          ak: ${{ secrets.ACCESSK }}
+          sk: ${{ secrets.SECRETACCESSKEY }}
+          endpoint: cn-southwest-2
+          project_id: ${{ secrets.PROJECT_ID }}
+          function_codetype: dir
+          function_file: ./
